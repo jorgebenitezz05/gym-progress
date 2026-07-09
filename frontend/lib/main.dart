@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'screens/exercise_list_screen.dart';
+import 'screens/home_screen.dart';
 
 void main() {
   runApp(const GymProgressApp());
@@ -18,7 +18,7 @@ class GymProgressApp extends StatelessWidget {
         useMaterial3: true,
         colorSchemeSeed: Colors.green,
       ),
-      home: const ExerciseListScreen(),
+      home: const HomeScreen(),
     );
   }
 }
