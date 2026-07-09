@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/exercise.dart';
 import '../services/exercise_service.dart';
+import 'create_exercise_screen.dart';
 
 class ExerciseListScreen extends StatefulWidget {
   const ExerciseListScreen({super.key});
@@ -27,6 +28,19 @@ class _ExerciseListScreenState extends State<ExerciseListScreen> {
     });
   }
 
+  Future<void> abrirPantallaCrearEjercicio() async {
+    final ejercicioCreado = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const CreateExerciseScreen(),
+      ),
+    );
+
+    if (ejercicioCreado == true) {
+      recargarEjercicios();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +53,10 @@ class _ExerciseListScreenState extends State<ExerciseListScreen> {
             icon: const Icon(Icons.refresh),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: abrirPantallaCrearEjercicio,
+        child: const Icon(Icons.add),
       ),
       body: FutureBuilder<List<Exercise>>(
         future: ejerciciosFuture,

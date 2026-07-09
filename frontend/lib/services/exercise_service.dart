@@ -20,4 +20,32 @@ class ExerciseService {
       throw Exception('Error al cargar los ejercicios');
     }
   }
+
+  // Crea un nuevo ejercicio en el backend
+  Future<Exercise> crearEjercicio({
+    required String name,
+    required String muscleGroup,
+    required String description,
+  }) async {
+    final url = Uri.parse('${ApiConfig.baseUrl}/exercises');
+
+    final respuesta = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        'name': name,
+        'muscleGroup': muscleGroup,
+        'description': description,
+      }),
+    );
+
+    if (respuesta.statusCode == 200 || respuesta.statusCode == 201) {
+      final datos = jsonDecode(respuesta.body);
+      return Exercise.fromJson(datos);
+    } else {
+      throw Exception('Error al crear el ejercicio');
+    }
+  }
 }
