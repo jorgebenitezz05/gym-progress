@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/workout_session.dart';
 import '../services/workout_service.dart';
 import 'create_workout_screen.dart';
+import 'workout_detail_screen.dart';
 
 class WorkoutListScreen extends StatefulWidget {
   const WorkoutListScreen({super.key});
@@ -96,6 +97,16 @@ class _WorkoutListScreenState extends State<WorkoutListScreen> {
               return Card(
                 margin: const EdgeInsets.only(bottom: 12),
                 child: ListTile(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WorkoutDetailScreen(
+                          workoutSession: entrenamiento,
+                        ),
+                      ),
+                    );
+                  },
                   leading: const Icon(Icons.event_note),
                   title: Text(
                     entrenamiento.routineName,
