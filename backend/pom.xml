@@ -54,6 +54,13 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- Firebase Admin SDK para conectar Spring Boot con Firebase -->
+		<dependency>
+			<groupId>com.google.firebase</groupId>
+			<artifactId>firebase-admin</artifactId>
+			<version>9.9.0</version>
+		</dependency>
+
 		<!-- Para validar datos de entrada -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

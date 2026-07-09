@@ -8,6 +8,9 @@ target/
 # Maven
 .mvn/wrapper/maven-wrapper.jar
 
+# Firebase
+backend/src/main/resources/firebase-service-account.json
+
 # IDEs
 .vscode/
 .idea/
