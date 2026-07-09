@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'exercise_list_screen.dart';
 import 'routine_list_screen.dart';
+import 'workout_list_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -74,6 +75,21 @@ class HomeScreen extends StatelessWidget {
                 },
                 icon: const Icon(Icons.list_alt),
                 label: const Text('Rutinas'),
+              ),
+            ),
+            const SizedBox(height: 16),
+            SizedBox(
+              width: double.infinity,
+              height: 55,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  abrirPantalla(
+                    context,
+                    const WorkoutListScreen(),
+                  );
+                },
+                icon: const Icon(Icons.event_note),
+                label: const Text('Entrenamientos'),
               ),
             ),
           ],
