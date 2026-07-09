@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/routine.dart';
 import '../services/routine_service.dart';
 import 'create_routine_screen.dart';
+import 'routine_detail_screen.dart';
 
 class RoutineListScreen extends StatefulWidget {
   const RoutineListScreen({super.key});
@@ -92,10 +93,19 @@ class _RoutineListScreenState extends State<RoutineListScreen> {
             itemCount: rutinas.length,
             itemBuilder: (context, index) {
               final rutina = rutinas[index];
-
               return Card(
                 margin: const EdgeInsets.only(bottom: 12),
                 child: ListTile(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RoutineDetailScreen(
+                          routine: rutina,
+                        ),
+                      ),
+                    );
+                  },
                   leading: const Icon(Icons.list_alt),
                   title: Text(
                     rutina.name,
@@ -104,6 +114,7 @@ class _RoutineListScreenState extends State<RoutineListScreen> {
                     ),
                   ),
                   subtitle: Text(rutina.description),
+                  trailing: const Icon(Icons.chevron_right),
                 ),
               );
             },
