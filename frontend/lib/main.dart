@@ -14,10 +14,36 @@ class GymProgressApp extends StatelessWidget {
     return MaterialApp(
       title: 'GymProgress',
       debugShowCheckedModeBanner: false,
+
+      // Tema general de la aplicación
       theme: ThemeData(
         useMaterial3: true,
-        colorSchemeSeed: Colors.green,
+
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF16A34A),
+          brightness: Brightness.light,
+        ),
+
+        scaffoldBackgroundColor: const Color(0xFFF5F7FA),
+
+        appBarTheme: const AppBarTheme(
+          elevation: 0,
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+        ),
+
+        cardTheme: CardThemeData(
+          elevation: 6,
+          margin: const EdgeInsets.symmetric(
+            horizontal: 18,
+            vertical: 8,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
       ),
+
       home: const HomeScreen(),
     );
   }
