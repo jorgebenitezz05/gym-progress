@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'screens/home_screen.dart';
+import 'widgets/bottom_nav_shell.dart';
 
 void main() {
   runApp(const GymProgressApp());
@@ -14,37 +14,33 @@ class GymProgressApp extends StatelessWidget {
     return MaterialApp(
       title: 'GymProgress',
       debugShowCheckedModeBanner: false,
-
-      // Tema general de la aplicación
+      themeMode: ThemeMode.dark,
       theme: ThemeData(
         useMaterial3: true,
-
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF16A34A),
-          brightness: Brightness.light,
+        brightness: Brightness.dark,
+        colorScheme: const ColorScheme.dark(
+          primary: Color(0xFF22C55E),
+          secondary: Color(0xFF2B2B2B),
+          surface: Color(0xFF181818),
         ),
-
-        scaffoldBackgroundColor: const Color(0xFFF5F7FA),
-
+        scaffoldBackgroundColor: const Color(0xFF0E0E0E),
         appBarTheme: const AppBarTheme(
-          elevation: 0,
-          centerTitle: true,
           backgroundColor: Colors.transparent,
+          elevation: 0,
+          foregroundColor: Colors.white,
+          centerTitle: true,
         ),
-
-        cardTheme: CardThemeData(
-          elevation: 6,
-          margin: const EdgeInsets.symmetric(
-            horizontal: 18,
-            vertical: 8,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: Color(0xFF181818),
+          selectedItemColor: Color(0xFF22C55E),
+          unselectedItemColor: Colors.white70,
         ),
+        textTheme: ThemeData.dark().textTheme.apply(
+              bodyColor: Colors.white,
+              displayColor: Colors.white,
+            ),
       ),
-
-      home: const HomeScreen(),
+      home: const BottomNavShell(),
     );
   }
 }
