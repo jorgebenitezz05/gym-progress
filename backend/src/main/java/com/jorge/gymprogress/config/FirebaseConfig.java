@@ -8,7 +8,9 @@ import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 @Configuration
 public class FirebaseConfig {
@@ -16,20 +18,38 @@ public class FirebaseConfig {
     @Bean
     public Firestore firestore() {
         try {
-            // Cargamos la clave privada de Firebase desde resources
-            InputStream serviceAccount = getClass()
-                    .getClassLoader()
-                    .getResourceAsStream("firebase-service-account.json");
 
-            if (serviceAccount == null) {
-                throw new RuntimeException("No se encontró el archivo firebase-service-account.json");
+            GoogleCredentials credentials;
+
+            // Si existe la variable de entorno FIREBASE_CONFIG (Render)
+            String firebaseConfig = System.getenv("FIREBASE_CONFIG");
+
+            if (firebaseConfig != null && !firebaseConfig.isBlank()) {
+
+                InputStream serviceAccount = new ByteArrayInputStream(
+                        firebaseConfig.getBytes(StandardCharsets.UTF_8));
+
+                credentials = GoogleCredentials.fromStream(serviceAccount);
+
+            } else {
+
+                // Si estamos en local usamos el JSON de resources
+                InputStream serviceAccount = getClass()
+                        .getClassLoader()
+                        .getResourceAsStream("firebase-service-account.json");
+
+                if (serviceAccount == null) {
+                    throw new RuntimeException(
+                            "No se encontró firebase-service-account.json ni la variable FIREBASE_CONFIG");
+                }
+
+                credentials = GoogleCredentials.fromStream(serviceAccount);
             }
 
             FirebaseOptions options = FirebaseOptions.builder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .setCredentials(credentials)
                     .build();
 
-            // Inicializamos Firebase solo si todavía no está inicializado
             if (FirebaseApp.getApps().isEmpty()) {
                 FirebaseApp.initializeApp(options);
             }
